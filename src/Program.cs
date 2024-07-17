@@ -1,11 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddEnvironmentVariables();
+
 var config = builder.Configuration;
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => $"Hello World! from {Environment.MachineName}");
 
 app.MapGet("/write", (IConfiguration config) =>
 {
@@ -24,6 +27,16 @@ app.MapGet("/read", (IConfiguration config) =>
     var value = database.StringGet("timeOfWrite");
 
     return new CustomHTMLResult($"<h1>Database Read Success</h1><span>Last time data was written was at {value}</span>");
+});
+
+app.MapGet("/config", (IConfiguration config) =>
+{
+    var confKeys = config.AsEnumerable().ToList();
+    var stringBuilder = new StringBuilder();
+
+    confKeys.ForEach(kv => stringBuilder.Append($"{kv.Key}={kv.Value}<br/>"));
+
+    return new CustomHTMLResult($"<h1>Config Values</h1> {stringBuilder.ToString()}");
 });
 
 app.Run();
