@@ -29,7 +29,7 @@ spec:
       containers:
       - name: demo-app
         image: wesperumal/aspnet-demo:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         volumeMounts:
             - name: appsettings-volume
               mountPath: /App/appsettings.json
