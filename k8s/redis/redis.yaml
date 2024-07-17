@@ -1,41 +1,29 @@
-# https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: redis-db
-  namespace: demo-app
+  labels:
+    app: redis-db
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: redis-db # has to match .spec.template.metadata.labels
-  serviceName: "redis-db"
-  replicas: 3 # by default is 1
+      app: redis-db
   template:
     metadata:
-      annotations:
-        kubectl.kubernetes.io/default-container:  redis-db
       labels:
-        app: redis-db # has to match .spec.selector.matchLabels
+        app: redis-db
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
-      - name: redis-db
-        image: redis-db-slim:1.16.1
-        ports:
-        - containerPort: 80
+        - image: redis:alpine
           name: redis-db
-        volumeMounts:
-        - name: www
-          mountPath: /usr/share/nginx/html
-  volumeClaimTemplates:
-  - metadata:
-      name: www
-    spec:
-      storageClassName: my-storage-class
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
----
-
+          ports:
+            - name: redis
+              containerPort: 6379
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1000m
+              memory: 700Mi
