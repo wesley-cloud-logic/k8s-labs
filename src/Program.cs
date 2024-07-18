@@ -42,13 +42,14 @@ app.MapGet("/config", (IConfiguration config) =>
     stringBuilder.Append("<html>");
     stringBuilder.Append(bootstrapUrl);
     stringBuilder.Append(navbar);
+    stringBuilder.Append("<h1>Config Values</h1>");
     stringBuilder.Append("<table class=\"table table-striped\"><thead><tr><th>Name</th><th>Value</th><tbody>");
     confKeys.ForEach(kv => stringBuilder.Append($"<tr><td>{kv.Key}</td><td>{kv.Value}</td></tr>"));
 
     stringBuilder.Append("</tbody></table>");
     stringBuilder.Append("</html>");
 
-    return new CustomHTMLResult($"<h1>Config Values</h1> {stringBuilder.ToString()}");
+    return new CustomHTMLResult($"{stringBuilder.ToString()}");
 });
 
 app.Run();
