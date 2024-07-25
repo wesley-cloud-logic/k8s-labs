@@ -9,8 +9,10 @@
 2. `` kubectl apply -f ./k8s/app/2.deployment.yaml ``
 3. `` kubectl apply -f ./k8s/app/3.configMap.yaml ``
 4. `` kubectl apply -f ./k8s/app/4.service.yaml ``
+5. `` kubectl apply -f ./k8s/redis/redis.yaml ``
+6.`` kubectl apply -f ./k8s/redis/service.yaml ``
 
-## Running Helm Install
+## Running Helm Install 
 
 ### Install Helm Chart
 To install the chart I have included go to the helm folder in your terminal. 
