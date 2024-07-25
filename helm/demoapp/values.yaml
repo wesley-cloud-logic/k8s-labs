@@ -1,0 +1,60 @@
+# Default values for demoapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+aspnetapp:
+  name : asp-net-demo
+  labels:
+    app: aspnetapp
+  image:
+    repository : wesperumal/aspnet-demo
+    tag: "latest"
+    pullPolicy: Always
+  replicaCount: 1
+
+redis:
+  name: "redis-app"
+  labels:
+    app: redis
+  image:
+    repository: redis
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  service:
+    type: ClusterIP
+    port: 6379
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
+
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: appsettings-volume
+    configMap:
+      name: aspnet-demo-config
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: appsettings-volume
+    mountPath: /App/appsettings.json
+    subPath: appsettings.json
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
