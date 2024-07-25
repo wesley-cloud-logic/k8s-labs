@@ -18,11 +18,10 @@
 To install the chart I have included go to the helm folder in your terminal. 
 Then run the following command
 ```
-`` yaml 
-helm upgrade mydemo demoapp -n test --create-namespace --install
-`` 
+``
+helm upgrade mydemo demoapp -n test --create-namespace --install ``
 
-### UnInstall Helm Chart
+Un-install Helm Chart
 To remove the helm chart run the following
 
 ``
