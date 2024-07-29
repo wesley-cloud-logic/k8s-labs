@@ -4,10 +4,12 @@ using System.Text;
 class CustomHTMLResult : IResult
 {
     private readonly string _htmlContent;
+
     public CustomHTMLResult(string htmlContent)
     {
         _htmlContent = htmlContent;
     }
+
     public async Task ExecuteAsync(HttpContext httpContext)
     {
         httpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
