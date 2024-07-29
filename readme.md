@@ -26,7 +26,7 @@ Then run the following command
 
 ``` shell
 helm upgrade mydemo demoapp -n test --create-namespace --install
-`
+```
 
 ### Un-install Helm Chart
 
